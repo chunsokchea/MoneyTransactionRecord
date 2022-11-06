@@ -1,0 +1,179 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["isDashboard"] = true;
+}
+<div class="container ">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+                <div class="card-body">
+                    <h4 class="card-title">ប្រាក់ដើម</h4><hr />
+                    <div class="d-flex flex-row widget summary income mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.CAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary income mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.CAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+                <div class="card-body">
+                    <h4 class="card-title">ប្រាក់គេបើក</h4><hr />
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.UAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.UAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+                <div class="card-body">
+                    <h4 class="card-title">ប្រាក់គេវេរ</h4><hr />
+                    <div class="d-flex flex-row widget summary income mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.TAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary income mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.TAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+            <div class="card-body">
+                    <h4 class="card-title">ប្រាក់គេជំពាក់</h4><hr />
+                    <div class="d-flex flex-row widget summary income mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.DAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary income mb-3">
+                         <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white"​>@ViewBag.DAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+                <div class="card-body">
+                    <h4 class="card-title">ប្រាក់ខ្វះគេ</h4><hr />
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.OAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.OAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card border-dark mb-3" style="max-width: 50rem;">
+                @*<div class="card-header">Header</div>*@
+                <div class="card-body">
+                    <h4 class="card-title">ប្រាក់ដកប្រើប្រាស់</h4><hr />
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid  fa-2xl">៛. </i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.WAmountR</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row widget summary expense mb-3">
+                        <div class="d-flex flex-column justify-content-center p-5">
+                            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                        </div>
+                        <div class="d-flex flex-column m-auto py-3">
+                            <h1 class="display-6 fw-normal text-white">@ViewBag.WAmountS</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+@*Recent Transactions and More*@
+@*<div class="row">
+    <div class="col-md-6">
+        <div class="widget">
+            <div class="p-4">
+                <h5 class="fw-bold">Recent Transactions</h5>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget h-100">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <span><i class="fa-solid fa-plus fa-2xl"></i> Widget</span>
+            </div>
+        </div>
+    </div>
+</div>*@
+@*@Html.Raw(ViewBag.count)*@
+@*@Html.Partial("../ClientTransactions/Index")*@

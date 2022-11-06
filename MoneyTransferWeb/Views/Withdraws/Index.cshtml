@@ -1,0 +1,127 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Withdraw>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ប្រាក់ប្រើប្រាស់ផ្សេងៗ</h1>
+<hr />
+@*<p>
+    <a asp-controller="Withdraws" asp-action="Create" class="btn btn-primary">បន្ថែមថ្មី</a>
+</p>*@
+<div id="PlaceHolderHere"></div>
+<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addBalance"
+        data-url="@Url.Action("Create","Withdraws")" aria-hidden="true">
+    បន្ថែមថ្មី
+</button>
+<hr />
+<div style="overflow-x:auto;  width:fit-content; min-width:50%">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:center">
+                    ល.រ
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WDetail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WAmountR)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WAmountS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WithdrawDateTime)
+                </th>
+
+                <th >
+                    ប្រាក់ដើម
+                    @*@Html.DisplayNameFor(model => model.Capital)*@
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var i = 0; float totalr = 0; float totals = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @{
+                            i += 1; totalr +=item.WAmountR; totals += item.WAmountS;
+                        }
+                        @i.ToString("00")
+                    </td>
+                    <td style="max-width:300px">
+                        @Html.DisplayFor(modelItem => item.WDetail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WAmountR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WAmountS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WithdrawDateTime)
+                    </td>
+
+                    <td >
+                        @{
+                            var dis = "";
+                            if (item.Capital.isActive == true)
+                            {
+                                dis="ថ្មី";
+                            }
+                            else
+                            {
+                                dis="ចាស់";
+                            }
+                            
+                        }
+                        @dis
+                        @*@Html.DisplayFor(modelItem => item.Capital.CapitalID)*@
+                    </td>
+                    <td>
+                        <button type="button" class="fa fa-book btn btn-info" data-toggle="ajax-modal" data-target="#detailWith"
+                            data-url="@Url.Action($"Details/{item.WithdrawID}","Withdraws")" aria-hidden="true"></button>
+                        <button type="button" class="fa fa-light fa-pen-to-square btn btn-info" data-toggle="ajax-modal" data-target="#updateBalance"
+                            data-url="@Url.Action($"Edit/{item.WithdrawID}","Withdraws")" aria-hidden="true"></button>
+                        <button type="button" class="fa fa-light fa-trash btn btn-danger" data-toggle="ajax-modal" data-target="#deleteBalance"
+                            data-url="@Url.Action($"Delete/{item.WithdrawID}","Withdraws")"></button>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    សរុប
+                </td>
+                <td style="max-width:300px">
+                </td>
+                <td>
+                    @{
+                        var tr = String.Format("៛{0:N}", totalr);
+                    }
+                    @tr
+                </td>
+                <td>
+                    @totals.ToString("C")
+                </td>
+                <td>
+                </td>
+
+                <td hidden>
+                </td>
+                <td>
+                </td>
+            </tr>
+        
+        </tfoot>
+    </table>
+</div>
+

@@ -1,0 +1,39 @@
+﻿@model MoneyTransferWeb.Models.Capital
+
+@{
+    ViewData["Title"] = "Capital";
+}
+
+<h1>ប្រាក់ដើម </h1>
+<div width:fit-content" class="container">    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CAmountR)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(model => model.CAmountR)
+        </dd>       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CAmountS)
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CAmountS)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDateTime)
+        </dd>
+
+    </dl>
+</div>
+<div>    
+</div>
+
+@Html.Partial("../Balances/_List",Model.Balances)
+
+

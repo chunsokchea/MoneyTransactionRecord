@@ -1,0 +1,31 @@
+﻿@*add button*@
+<div id="PlaceHolderHere"></div>
+<button type="button" class="btn btn-primary fa fa-plus-square" data-toggle="ajax-modal" data-target="#addBalance"
+        data-url="@Url.Action("Create","Balances")" aria-hidden="true">
+    បន្ថែមថ្មី
+</button>
+@*Edit Delete Button*@
+<button  type="button" class="fa fa-light fa-pen-to-square btn btn-info" data-toggle="ajax-modal" data-target="#updateBalance"
+              data-url="@Url.Action($"Edit/id","Balances")" aria-hidden="true"></button>                  
+<button type="button" class="fa fa-light fa-trash btn btn-danger" data-toggle="ajax-modal" data-target="#deleteBalance"
+             data-url="@Url.Action($"Delete/id","Balances")"></button>
+
+<div class="modal fade" id="addBalance">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addBalanceLabel">បន្ថែមថ្មី</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-save="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

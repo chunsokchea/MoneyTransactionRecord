@@ -1,0 +1,36 @@
+﻿@model MoneyTransferWeb.Models.TransactionChild
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TransactionChild</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TAmountR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TAmountR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TAmountS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TAmountS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TType)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ChildID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

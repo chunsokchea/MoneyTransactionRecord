@@ -1,0 +1,66 @@
+﻿@model MoneyTransferWeb.Models.Transaction
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TDetail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TDetail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TransactionDateTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransactionDateTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Client.ClientName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Capital)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Capital.CapitalID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <hr />
+    <br />
+@*    <a asp-action="Edit" asp-route-id="@Model?.TransactionID">Edit</a> |
+    <a asp-action="Index">Back to List</a>*@
+</div>
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("../Debts/Details",Model.Debt)
+    </div>
+    <div class="col-md-8">
+        @Html.Partial("../TransactionChilds/Index",Model.TransactionChild)
+    </div>    
+</div>
+
+

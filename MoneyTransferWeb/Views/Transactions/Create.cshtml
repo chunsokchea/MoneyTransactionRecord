@@ -1,0 +1,237 @@
+﻿@model MoneyTransferWeb.Models.Transaction
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>ប្រតិប័តការ</h1>
+<div id="PlaceHolderHere"></div>
+<button type="button" class="btn btn-primary " data-toggle="ajax-modal" data-target="#addClient"
+        data-url="@Url.Action("Create","Clients")" aria-hidden="true">
+    អតិថិជនថ្មី
+</button>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+            <div class="col-md-3">
+                <div class="form-group col-10 ">
+                @*<label asp-for="ClientID" class="control-label"></label> *@
+                        <div class="input-group ">
+                            <select asp-for="ClientID" class="form-select" asp-items="ViewBag.ClientID" id="ddlCustomers" >
+                                <option>--ជ្រើសរើសអតិថិជន--</option>
+                            </select>                            
+                        </div>                        
+                 <span asp-validation-for="ClientID" class="text-danger"></span>
+                        
+            </div><br />
+                <div class="form-group col-10">
+                    <label asp-for="TotalR" class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">៛</span>
+                            <input id="totalr" class="form-control" disabled />
+                            <input asp-for="TotalR" name="TotalR" id="totalr2" class="form-control" hidden />
+                            <label id="totalrl"></label>
+                    </div>
+                    <span asp-validation-for="TotalR" class="text-danger"></span>
+                </div>
+                <div class="form-group col-10">
+                    <label asp-for="TotalS" class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input id="totals" class="form-control" disabled/>
+                            @*<label asp-for="TotalS"  id="totals" class="form-control"></label>*@
+                            <input asp-for="TotalS" name="TotalS" id="totals2" class="form-control" hidden />
+                        </div>                    
+                    <span asp-validation-for="TotalS" class="text-danger"></span>
+                </div>
+                <div class="form-group col-10">
+                    <label asp-for="TDetail" class="control-label"></label>
+                    <textarea asp-for="TDetail" class="form-control" ></textarea>
+                    <span asp-validation-for="TDetail" class="text-danger"></span>
+                </div>
+
+                @*<div class="form-group">
+                    <label asp-for="ClientID" class="control-label"></label>
+                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+                </div>*@
+                <div class="form-group" hidden>
+                    <label asp-for="CapitalID" class="control-label"></label>
+                    <select asp-for="CapitalID" class="form-control" asp-items="ViewBag.CapitalID"></select>
+                </div>
+                <br />
+                    
+            </div>
+            <div class="col-md-6">
+                <table class="table" id="TransTable">
+                    <thead>
+                        <tr>
+                            <th scope="col" hidden>#</th>
+                            <th scope="col">ប្រតិប័តការ</th>
+                            <th scope="col">ប្រាក់រៀល</th>
+                            <th scope="col">ប្រាក់ដុល្លា</th>
+                            <th scope="col">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)">
+                                    បន្ថែម
+                                </button>
+                            </th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        @for(int i=0; i<Model.TransactionChild.Count; i++)
+                        {
+                            <tr>
+                                <td align="center" hidden>@{
+                                        var no = i + 1;   
+                                    }
+                                    @no.ToString("00")
+                                    <input type="text" asp-for="@Model.ClientID" /></td>
+                                <td>
+                                    <div class="input-group">                                        
+                                        <select asp-for="@Model.TransactionChild[i].TType" type="text" class="form-select" style="width:fit-content">
+                                            <option value="true" selected>វេរប្រាក់</option>
+                                            <option value="false">ដកប្រាក់</option>
+                                        </select>
+                                    </div>
+                                    
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-text">៛</span>
+                                        <input type="number" min="0" asp-for="@Model.TransactionChild[i].TAmountR" class="form-control AmountR" value="0" oninput="CalculateTotal()" />
+                                        <span asp-validation-for="@Model.TransactionChild[i].TAmountR" class="text-danger"></span>
+                                    </div>
+                                    
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                            <input type="number" min="0" asp-for="@Model.TransactionChild[i].TAmountS" class="form-control AmountS" value="0" oninput="CalculateTotal()" />
+                                    <span asp-validation-for="@Model.TransactionChild[i].TAmountS" class="text-danger"></span>
+                                </div>
+                                </td>
+                                <td><a id="btnremove-@i" class="btn btn-danger" onclick="DeleteItem(this)">លុប</a></td>
+                        </tr>
+                        }
+                        
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+
+                <div class="col-md-3">                    
+                    <div class="form-group form-check m-3">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" id="dept" onclick="yesnoCheck()" /> ជំពាក់/ខ្វះគេ
+                        </label>
+                    </div>
+
+                    <div class="form-group m-3" style="visibility:hidden">
+                        <select asp-for="Debt.DebtOwe" id="bdept3" type="text" class="form-select">
+                            <option value="true" selected>ជំពាក់</option>
+                            <option value="false">ខ្វះគេ</option>
+                        </select>
+                    </div>
+                    <div class="form-group m-3" id="bdept1" style="visibility:hidden">
+                        <label asp-for="Debt.DAmountR" class="control-label"></label>
+                        <input asp-for="Debt.DAmountR" class="form-control" value="0" />
+                        <span asp-validation-for="Debt.DAmountR" class="text-danger"></span>
+                    </div>
+                    <div class="form-group m-3" id="bdept2" style="visibility:hidden">
+                        <label asp-for="Debt.DAmountS" class="control-label"></label>
+                        <input asp-for="Debt.DAmountS" class="form-control" value="0" />
+                        <span asp-validation-for="Debt.DAmountS" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-10">
+                    <input type="submit" value="រក្សារទុក" class="btn btn-primary form-control" />
+                </div>
+            </div>            
+
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#ddlCustomers").select2();
+        });
+        function AddItem(btn){
+            var table;
+            table=document.getElementById('TransTable');
+            var rows = table.getElementsByTagName('tr');
+            var rowOuterHtml= rows[rows.length-1].outerHTML;
+
+            var lastrowIdx=rows.length-2;
+            var nextrowIdx=eval(lastrowIdx)+1;
+
+            rowOuterHtml=rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowOuterHtml=rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx , '-' + nextrowIdx);
+
+            var newRow =table.insertRow();
+            newRow.innerHTML=rowOuterHtml;
+
+            var x = document.getElementsByTagName("input");
+
+            for (var cnt=0; cnt<x.length; cnt++){
+                if(x[cnt].type=="text" && x[cnt].id.indexOf('_' + nextrowIdx + '_')>0)
+                    x[cnt].value=' ';
+                else if (x[cnt].type=="number" &&  x[cnt].id.indexOf('_' + nextrowIdx + '_')>0)
+                    x[cnt].value = 0;
+            }
+        }
+
+        function DeleteItem(btn){
+            var table = document.getElementById('TransTable');
+            var rows= document.getElementsByTagName('tr');
+            if(rows.length==2){
+                alert("this row cannot be delete!");
+                return;
+            }
+            $(btn).closest('tr').remove();
+        }
+
+        function CalculateTotal() {
+            var x = document.getElementsByClassName('AmountR');
+            var y = document.getElementsByClassName('AmountS');
+            var totalR = 0, totalS = 0;
+            var i;
+            for (i = 0; i < x.length; i++) {
+                totalR = totalR + eval(x[i].value);
+                totalS = totalS + eval(y[i].value);
+            }
+            document.getElementById("totalr").setAttribute('value', totalR);
+            document.getElementById("totalr2").setAttribute('value', totalR);
+            document.getElementById("totals").setAttribute('value', totalS);
+            document.getElementById("totals2").setAttribute('value', totalS);
+        }
+        function yesnoCheck() {            
+            if (document.getElementById('dept').checked) {               
+                document.getElementById('bdept1').style.visibility = 'visible';
+                document.getElementById('bdept2').style.visibility = 'visible';
+                document.getElementById('bdept3').style.visibility = 'visible';
+            } else {
+                document.getElementById('bdept1').style.visibility = 'hidden';
+                document.getElementById('bdept2').style.visibility = 'hidden';
+                document.getElementById('bdept3').style.visibility = 'hidden';
+            };
+        };
+    </script>
+}

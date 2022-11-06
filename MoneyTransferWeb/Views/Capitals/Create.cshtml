@@ -1,0 +1,270 @@
+﻿@model MoneyTransferWeb.Models.Capital
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    input[type=number] {
+        text-align: right;
+    }
+       /* .CodesTable table{width:100%}
+        .CodesTable thead{width:calc(100%-1em);}
+        .CodesTable tbody{display:block;height:200px;overflow-y:auto;overflow-x:hidden}
+        .CodesTable thead, .CodesTabletbody tbody, .CodesTable tr{display:table;width:97%; table-layout:fixed; }
+        .CodesTable thead, .CodesTable tbody, .CodesTable td{border:none !important}*/
+</style>
+@*<h1>Create</h1>*@
+@{
+    // Since Address isn't a string, it requires a cast.
+    var ins = ViewData["Ins"] as List<Institution>;    
+}
+<h4>បញ្ចូលថ្មី (ប្រាក់ដើមមានក្នុងកុង និង ប្រាក់នៅក្រៅ)</h4>
+<hr />
+<br />
+    <div class="container">
+        <form asp-action="Create">            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3 >ប្រាក់ដើម</h3>          
+                <div class="form-group">
+                    <label asp-for="CAmountR" class="control-label">រៀល</label>
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text">៛</span>
+                        <input onClick="this.select();" type="number" class=" form-control" asp-for="CAmountR" id="totalRiel" value="0" hidden>
+                        <input type="number" class="form-control" id="totalRiel2" value="0" disabled>
+                        <span class="input-group-text">.00</span>
+                        <span asp-validation-for="CAmountR" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<input type="radio" asp-for="isActive" hidden checked />*@
+                <div class="form-group">
+                    <label asp-for="CAmountS" class="control-label">ដុល្លា</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input onClick="this.select();" type="number" class="form-control" asp-for="CAmountS" id="totalDollar" value="0" hidden>
+                        <input type="number" class="form-control"  id="totalDollar2" value="0" disabled>
+                        <span class="input-group-text">.00</span>
+                        <span asp-validation-for="CAmountS" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-8 p-0 m-0 bg-light">
+                <h3 class="text-right">ប្រាក់ក្នុងកុងនិមួយៗ</h3><br />
+                <table id="BalTable" class="table table-sm table-bordered" >
+                    <thead>
+                        <tr>
+                            <th>ស្ថាប័ន(កុង)</th>
+                            <th>ប្រាក់រៀល</th>
+                            <th>ប្រាក់ដុល្លា</th>
+                            @*<th>
+                                <button id="btnaddBalance" type="button" class="btn btn-sm btn-secondary visible"
+                                        onclick="AddItem(this)">
+                                    បន្ថែម
+                                </button>
+                            </th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i=0;i<Model.Balances.Count;i++)
+                        {                                                
+                            <tr id="rowData">
+                                    <td>
+                                    @*<select class="form-control" asp-for="@Model.Balances[i].InstitutionID" asp-items="ViewBag.InstitutionID"></select>*@
+                                    <select class="form-control" asp-for="@Model.Balances[i].InstitutionID" hidden >
+                                        <option value="@ins[i].InstitutionID" >
+                                            @ins[i].INameKH 
+                                            </option>
+                                        </select>
+                                    <label  class="form-control" disabled>@ins[i].INameKH</label>
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">៛</span>
+                                        <input type="number" min="0" onClick="this.select();" asp-for="@Model.Balances[i].BAmountR" class="AmountR form-control" oninput="CalculateTotal();" />
+                                        <span class="input-group-text">.00</span>
+                                        <span asp-validation-for="@Model.Balances[i].BAmountR" class="text-danger"></span>
+                                    </div>
+                                    
+                                    </td>
+                                    <td>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" min="0" onClick="this.select();" class="AmountS form-control" asp-for="@Model.Balances[i].BAmountS" oninput="CalculateTotal();" />
+                                        <span class="input-group-text">.00</span>
+                                        <span asp-validation-for="@Model.Balances[i].BAmountS" class="text-danger"></span>
+                                    </div>
+                                                                   
+                                        </td>
+                                    @*<td>
+                                        <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger visible"
+                                        onclick="DeleteItem(this)">
+                                            លុប
+                                        </button>
+                                    </td>*@
+                                </tr>
+                            
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+            <br /><hr />
+            <div class="col-md-4"></div>
+            <div class=" col-md-8 p-0 m-0 bg-light">
+                <h3 class="text-right">ប្រាក់ដកប្រើប្រាស់</h3><br />
+                <table id="WithTable" class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>បរិយាយ</th>
+                            <th>ប្រាក់រៀល</th>
+                            <th>ប្រាក់ដុល្លា</th>
+                            <th>
+                            <button id="btnaddBalance" type="button" class="btn btn-sm btn-secondary visible"
+                            onclick="AddItem(this)">
+                            បន្ថែម
+                            </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Withdraws.Count; i++)
+                        {
+                            <tr id="rowData">
+                                <td>
+                                    <div class="input-group mb-3">                                        
+                                        <input type="text" min="0" onClick="this.select();" asp-for="@Model.Withdraws[i].WDetail" class=" form-control text-left"  />
+                                        <span asp-validation-for="@Model.Withdraws[i].WDetail" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">៛</span>
+                                        <input type="number" min="0" onClick="this.select();" asp-for="@Model.Withdraws[i].WAmountR" class=" form-control"  />
+                                        <span class="input-group-text">.00</span>
+                                        <span asp-validation-for="@Model.Withdraws[i].WAmountR" class="text-danger"></span>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" min="0" onClick="this.select();" class=" form-control" asp-for="@Model.Withdraws[i].WAmountS"  />
+                                        <span class="input-group-text">.00</span>
+                                        <span asp-validation-for="@Model.Withdraws[i].WAmountS" class="text-danger"></span>
+                                    </div>
+
+                                </td>
+                                <td>
+                            <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger visible"
+                            onclick="DeleteItemV(this)">
+                            លុប
+                            </button>
+                            </td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>                 
+        <div class="row align-items-end">
+            
+            <div class="form-group mb-3">
+                <input type="submit" value="រក្សាទុក" class="btn btn-primary align-content-center" />
+            </div>
+        </div>
+            
+        </form>
+    </div>
+
+<div>
+    @*<a asp-controller="Dashboard" asp-action="Index">Go Back</a>*@
+</div>
+
+@section Scripts{
+   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script type="text/javascript">
+       
+        $(".custom-file-input").on("change",function(){
+            var fileName=$(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });       
+
+        
+        function CalculateTotal(){
+            var x=document.getElementsByClassName('AmountR');
+            var y=document.getElementsByClassName('AmountS');
+            var totalR = 0, totalS = 0 ;
+            //var i;
+            //alert(x.length+""+y.length);
+            for(i=0; i< x.length; i++){
+                totalR=totalR+eval(x[i].value);                
+            }
+            for(i=0; i<y.length;i++){
+                totalS = totalS + eval(y[i].value);
+            }
+            document.getElementById("totalRiel").setAttribute('value', totalR);
+            document.getElementById("totalDollar").setAttribute('value', totalS);
+            document.getElementById("totalRiel2").setAttribute('value', totalR);
+            document.getElementById("totalDollar2").setAttribute('value', totalS);
+        }
+       
+        function DeleteItem(btn){
+            var table=document.getElementById('BalTable');
+            var rows=table.getElementsByTagName('tr');
+            if(rows.length==2){
+                alert("មិនអាចលុបបានទេ!");
+                return;
+            }           
+
+            $(btn).closest('tr').remove();
+        }
+        function DeleteItemV(btn) {
+            var table = document.getElementById('WithTable');
+            var rows = table.getElementsByTagName('tr');
+            if (rows.length == 2) {
+                alert("មិនអាចលុបបានទេ!");
+                return;
+            }
+
+            $(btn).closest('tr').remove();
+        }
+        function AddItem(btn) {
+            var table = document.getElementById('WithTable');
+            var rows = table.getElementsByTagName('tr');
+
+            var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+            var lastrowInx = rows.length - 2;
+
+            var nextrowInx = eval(lastrowInx) + 1;
+
+            rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowInx + '_', '_' + nextrowInx + '_');
+            rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowInx + ']', '[' + nextrowInx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowInx, '-' + nextrowInx);
+
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowOuterHtml;
+            var x = document.getElementsByTagName("INPUT");
+
+            for (var cnt = 0; cnt < x.length; cnt++) {
+                if (x[cnt].type == "text" && x[cnt].id.indexOf('_' + nextrowInx + '_0') > 0)
+                    x[cnt].value = ' ';
+                else if (x[cnt].type == "number" && x[cnt].id.indexOf('_' + nextrowInx + '_0') > 0)
+                    x[cnt].value = 0;
+            }
+
+           rebindvalidators();
+        }
+        function rebindvalidators() {
+            var $form = $("ApplicationForm");
+            $form.unbind();
+            $form.data("validator", null);
+            $.validator.unobstrusive.parse($form);
+            $form.validate($form.data("unobstrusiveValidation").options);
+        }
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@model MoneyTransferWeb.Models.Withdraw
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="modal fade" id="addBalance">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addBalanceLabel">មើលទិន្ន័យ</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+				
+
+				<div>
+					<h4>ប្រាក់ដក</h4>
+					<hr />
+					<dl class="row">
+						<dt class="col-sm-2">
+							@Html.DisplayNameFor(model => model.WAmountR)
+						</dt>
+						<dd class="col-sm-10">
+							@Html.DisplayFor(model => model.WAmountR)
+						</dd>
+						<dt class="col-sm-2">
+							@Html.DisplayNameFor(model => model.WAmountS)
+						</dt>
+						<dd class="col-sm-10">
+							@Html.DisplayFor(model => model.WAmountS)
+						</dd>
+						<dt class="col-sm-2">
+							@Html.DisplayNameFor(model => model.WithdrawDateTime)
+						</dt>
+						<dd class="col-sm-10">
+							@Html.DisplayFor(model => model.WithdrawDateTime)
+						</dd>
+						<dt class="col-sm-2">
+							@Html.DisplayNameFor(model => model.WDetail)
+						</dt>
+						<dd class="col-sm-10">
+							@Html.DisplayFor(model => model.WDetail)
+						</dd>
+						<dt class="col-sm-2">
+							@Html.DisplayNameFor(model => model.Capital)
+						</dt>
+						<dd class="col-sm-10" hidden>
+							@Html.DisplayFor(model => model.Capital.CapitalID)
+						</dd>
+					</dl>
+				</div>
+				<div>
+					@*<a asp-action="Edit" asp-route-id="@Model?.WithdrawID">Edit</a> |*@
+					@*<a asp-action="Index">Back to List</a>*@
+				</div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-save="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

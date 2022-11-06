@@ -1,0 +1,40 @@
+﻿@model MoneyTransferWeb.Models.Institution
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Institution</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="INameKH" class="control-label"></label>
+                <input asp-for="INameKH" class="form-control" />
+                <span asp-validation-for="INameKH" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="INameEN" class="control-label"></label>
+                <input asp-for="INameEN" class="form-control" />
+                <span asp-validation-for="INameEN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDetail" class="control-label"></label>
+                <input asp-for="IDetail" class="form-control" />
+                <span asp-validation-for="IDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

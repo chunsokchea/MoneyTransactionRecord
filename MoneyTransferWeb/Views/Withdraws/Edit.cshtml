@@ -1,0 +1,72 @@
+﻿@model MoneyTransferWeb.Models.Withdraw
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="modal fade" id="addBalance">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addBalanceLabel">កែប្រែ</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">			
+
+				<h4>ប្រាក់ដក</h4>
+				<hr />
+				<div class="row">
+					<div class="col-md">
+						<form asp-action="Edit">
+							<input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							<input type="hidden" asp-for="WithdrawID" />
+							<div class="form-group">
+								<label asp-for="WAmountR" class="control-label"></label>
+								<input asp-for="WAmountR" class="form-control" />
+								<span asp-validation-for="WAmountR" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="WAmountS" class="control-label"></label>
+								<input asp-for="WAmountS" class="form-control" />
+								<span asp-validation-for="WAmountS" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="WithdrawDateTime" class="control-label"></label>
+								<input asp-for="WithdrawDateTime" class="form-control" />
+								<span asp-validation-for="WithdrawDateTime" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="WDetail" class="control-label"></label>
+								<textarea asp-for="WDetail" class="form-control" ></textarea>
+								<span asp-validation-for="WDetail" class="text-danger"></span>
+							</div>
+							<div class="form-group" hidden>
+								<label asp-for="CapitalID" class="control-label"></label>
+								<select asp-for="CapitalID" class="form-control" asp-items="ViewBag.CapitalID"></select>
+								<span asp-validation-for="CapitalID" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<input type="submit" value="Save" class="btn btn-primary" />
+							</div>
+						</form>
+					</div>
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-save="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

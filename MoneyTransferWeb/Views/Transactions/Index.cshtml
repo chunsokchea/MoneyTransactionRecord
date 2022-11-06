@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capital)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TDetail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.ClientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capital.CapitalID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TransactionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TransactionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TransactionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

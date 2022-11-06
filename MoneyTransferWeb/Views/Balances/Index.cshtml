@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Balance>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<h1>Index1</h1>*@
+<button asp-controller="balances" class="btn btn-primary" asp-action="Create">បន្ថែមថ្មី</button>
+<p>
+    <a asp-controller="balances" asp-action="Create" hidden>បន្ថែមថ្មី</a>    
+</p>
+
+@*<div class="container">
+    <h2>Modal Example</h2>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" data-url="@Url.Action("Create")">Open Modal</button>
+
+    <!-- Modal -->
+
+    <div class="modal" id="myModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{
+                        Html.RenderPartial("Create");
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>*@
+<table class="table table-hover table-fixed">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th align="right" scope="col">
+               @Html.DisplayNameFor(model => model.BAmountR)
+            </th>
+            <th align="right">
+                @Html.DisplayNameFor(model => model.BAmountS)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.Capitals)
+            </th>
+            <th align="center">
+                ស្ថាប័ន(កុង)
+                @*@Html.DisplayNameFor(model => model.Institution)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody >
+@foreach (var item in Model) {
+        <tr>
+            <td align="right">
+                    &#6107;@Html.DisplayFor(modelItem => item.BAmountR)
+            </td>
+            <td align="right">
+                $@Html.DisplayFor(modelItem => item.BAmountS)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.Capitals.CapitalID)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.Institution.INameKH)
+            </td>
+            <td>
+                <a asp-controller="balances" asp-action="Edit" asp-route-id="@item.BalanceID">Edit</a> |
+                @*<a asp-action="Details" asp-route-id="@item.BalanceID">Details</a> |*@
+                    <a asp-controller="balances" asp-action="Delete" asp-route-id="@item.BalanceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

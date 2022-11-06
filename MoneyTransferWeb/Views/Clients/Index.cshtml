@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>បញ្ជីអតិថិជន</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<div id="PlaceHolderHere"></div>
+<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#add-Client"
+        data-url="@Url.Action("Create","Clients")" aria-hidden="true">
+    បន្ថែមថ្មី
+</button>
+<div style="overflow-x:auto; width:fit-content; min-width:50%">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientSex)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientName)
+            </td>
+            <td>@(item.ClientSex?"ប្រុស":"ស្រី")
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                
+            <td>
+               @*     @{
+                        var dateC= item.CreatedDateTime.ToShortDateString();                        
+                    }
+                    @dateC*@
+                    @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detail)
+                </td>
+            <td>
+                <button type="button" class="fa fa-book btn btn-info" data-toggle="ajax-modal" data-target="#deleteBalance"
+                        data-url="@Url.Action($"Details/{item.ClientID}","Clients")"></button>
+                   <button  type="button" class="fa fa-light fa-pen-to-square btn btn-info" data-toggle="ajax-modal" data-target="#updateBalance"
+                        data-url="@Url.Action($"Edit/{item.ClientID}","Clients")" aria-hidden="true"></button>
+                    <button type="button" class="fa fa-light fa-trash btn btn-danger" data-toggle="ajax-modal" data-target="#deleteBalance"
+                        data-url="@Url.Action($"Delete/{item.ClientID}","Clients")"></button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

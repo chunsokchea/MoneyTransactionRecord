@@ -1,0 +1,51 @@
+﻿@model MoneyTransferWeb.Models.Capital
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Capital</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CapitalID" />
+            <div class="form-group">
+                <label asp-for="CAmountR" class="control-label"></label>
+                <input asp-for="CAmountR" class="form-control" />
+                <span asp-validation-for="CAmountR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CAmountS" class="control-label"></label>
+                <input asp-for="CAmountS" class="form-control" />
+                <span asp-validation-for="CAmountS" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="UAmountR" class="control-label"></label>
+                <input asp-for="UAmountR" class="form-control" />
+                <span asp-validation-for="UAmountR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UAmountS" class="control-label"></label>
+                <input asp-for="UAmountS" class="form-control" />
+                <span asp-validation-for="UAmountS" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="CreatedDateTime" class="control-label"></label>
+                <input asp-for="CreatedDateTime" class="form-control" />
+                <span asp-validation-for="CreatedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

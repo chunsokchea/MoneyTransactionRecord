@@ -1,0 +1,148 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Balance>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<h1>ប្រាក់នៅក្នុងស្ថាប័ន(កុង)</h1>
+<hr />
+@*<p>
+    <a asp-controller="Balances" asp-action="Create">បន្ថែមថ្មី</a>
+</p>*@
+<div id="PlaceHolderHere"></div>
+<button type="button" class="btn btn-primary fa fa-plus-square" data-toggle="ajax-modal" data-target="#addBalance"
+        data-url="@Url.Action("Create","Balances")" aria-hidden="true">
+    បន្ថែមថ្មី
+</button>    
+<hr />
+<div style="overflow-x:auto; width:fit-content; min-width:50%">
+<table class="table" id="CustomerGrid" >
+    <thead>
+        <tr>
+                <th style="text-align:center">
+                ល.រ
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BAmountR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BAmountS)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Capitals)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Institution)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @{
+                var i = 0;
+            }
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td style="text-align:center;">
+                        @{
+                            i = i + 1;
+                        }
+                        @i.ToString("00")                    
+                </td>
+                    <td >
+                    @Html.DisplayFor(modelItem => item.BAmountR)
+                </td>
+                    <td >
+                    @Html.DisplayFor(modelItem => item.BAmountS)
+                </td>
+               @* <td>
+                    @Html.DisplayFor(modelItem => item.Capitals.CapitalID)
+                </td>*@
+                    <td align="left">
+                    @Html.DisplayFor(modelItem => item.Institution.INameKH) @*(@Html.DisplayFor(modelItem => item.Institution.INameEN))*@
+                </td>
+                <td>
+                   @* <a asp-controller="Balances" asp-action="Edit" asp-route-id="@item.BalanceID" class="fa fa-light fa-pen-to-square btn btn-success" ></a>   *@
+                        <button  type="button" class="fa fa-light fa-pen-to-square btn btn-info" data-toggle="ajax-modal" data-target="#updateBalance"
+                            data-url="@Url.Action($"Edit/{item.BalanceID}","Balances")" aria-hidden="true">                           
+                        </button>
+                   @* <a asp-controller="Balances" asp-action="Delete" asp-route-id="@item.BalanceID" class="fa fa-light fa-trash btn btn-danger"></a>*@
+                        <button type="button" class="fa fa-light fa-trash btn btn-danger" data-toggle="ajax-modal" data-target="#deleteBalance"
+                       data-url="@Url.Action($"Delete/{item.BalanceID}","Balances")"></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+       
+    </tfoot>
+</table>
+</div>
+
+<br />
+
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+@section script{
+    @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>*@
+    <script type="text/javascript">
+              
+
+        $("body").on("click", "#btnAdd", function () {
+            var txtName = $("#txtName");
+            var txtCountry = $("#ddlCountries");
+            var tBody = $("#tblCustomers > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            var cell = $(row.insertCell(-1));
+            cell.html(txtName.val());
+            cell = $(row.insertCell(-1));
+            cell.html(txtCountry.val());
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<input />");
+            btnRemove.attr("type", "button");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.val("Remove");
+            cell.append(btnRemove);
+            txtName.val("");
+            txtCountry.val("");
+        });
+
+        $("body").on("click", "#btnSave", function () {
+            var customers = new Array();
+            $("#tblCustomers TBODY TR").each(function () {
+                var row = $(this);
+                var customer = {};
+                customer.Name = row.find("TD").eq(0).html();
+                customer.Country = row.find("TD").eq(1).html();
+                customers.push(customer);
+            });
+
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/Home/InsertCustomers",
+                data: JSON.stringify(customers),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    alert(r + " record(s) inserted.");
+                }
+            });
+        });
+
+        function Remove(button) {
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            if (confirm("Do you want to delete: " + name)) {
+                var table = $("#tblCustomers")[0];
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+    </script>
+}
+
+
+
+

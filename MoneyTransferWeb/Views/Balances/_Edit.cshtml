@@ -1,0 +1,64 @@
+﻿@model MoneyTransferWeb.Models.Balance
+
+@{
+   
+}
+<div class="modal fade" id="addBalance">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addBalanceLabel">កែប្រែ</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="BalanceID" />
+                            <div class="form-group">
+                                <label asp-for="BAmountR" class="control-label"></label>                               
+                                <input asp-for="BAmountR" type="number" class="form-control" />
+                                <span asp-validation-for="BAmountR" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BAmountS" class="control-label"></label>
+                                <input asp-for="BAmountS" type="number" class="form-control" />
+                                <span asp-validation-for="BAmountS" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="CapitalID" class="control-label"></label>
+                                <select asp-for="CapitalID" class="form-control form-select" asp-items="ViewBag.CapitalID"></select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="InstitutionID" class="control-label"></label>
+                                <select asp-for="InstitutionID" class="form-control form-select" asp-items="ViewBag.InstitutionID" hidden></select>
+                                <input type="text" class="form-control" value="@Model.Institution.INameKH (@Model.Institution.INameEN)" disabled/>                               
+                                
+                            </div>
+                            @*<div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-save="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

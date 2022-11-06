@@ -1,0 +1,36 @@
+﻿@model MoneyTransferWeb.Models.Institution
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Institution</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.INameKH)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.INameKH)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.INameEN)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.INameEN)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IDetail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IDetail)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.InstitutionID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

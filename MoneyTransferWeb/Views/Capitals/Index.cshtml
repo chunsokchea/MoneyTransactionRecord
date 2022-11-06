@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MoneyTransferWeb.Models.Capital>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ប្រាក់ដើម</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">បន្ថែមថ្មី</a>
+</p>
+<table class="table table-active">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CAmountR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CAmountS)
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.UAmountR)*@
+            </th>
+            <th>
+                ស្ថានភាព
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr style="background-color:@(item.isActive?"#34568B":"#FF6F61"); color:white">
+            <td>
+                @Html.DisplayFor(modelItem => item.CAmountR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAmountS)
+            </td>
+            <td>
+               @* @Html.DisplayFor(modelItem => item.UAmountR)*@
+            </td>
+            <td>
+                    @{
+                        var text = "";
+                        if (item.isActive == true)
+                        {
+                            text=("កំពុងប្រើ");
+                        }
+                        else
+                        {
+                            text=("បោះបង់");
+                        }
+                        }
+                    @text
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDateTime)
+            </td>
+            <td>
+               @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.CapitalID">កែប្រែ</a> *@
+                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.CapitalID">Details</a> 
+                @*<a asp-action="Delete" asp-route-id="@item.CapitalID">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
